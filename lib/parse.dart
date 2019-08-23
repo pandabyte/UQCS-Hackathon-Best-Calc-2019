@@ -9,5 +9,10 @@ int parseRoman(String roman) {
     'M': 1000,
   };
 
-  return digits[roman];
+  var result = 0;
+  for (var i = 0; i < roman.length; i++) {
+    result += digits[roman[i]];
+  }
+
+  return result;
 }

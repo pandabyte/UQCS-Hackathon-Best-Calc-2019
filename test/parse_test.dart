@@ -4,7 +4,7 @@ import 'package:best_calc/parse.dart';
 
 void main() {
   test('Check simple roman numbers', () {
-    const digits = {
+    const parseResults = {
       'I': 1,
       'V': 5,
       'X': 10,
@@ -12,13 +12,12 @@ void main() {
       'C': 100,
       'D': 500,
       'M': 1000,
+      'VII': 7,
+      'CXI': 111,
     };
 
-    digits.forEach(
-      (symbol, value) => expect(
-        parseRoman(symbol),
-        equals(value),
-      ),
+    parseResults.forEach(
+      (symbol, value) => expect(parseRoman(symbol), equals(value)),
     );
   });
 }
