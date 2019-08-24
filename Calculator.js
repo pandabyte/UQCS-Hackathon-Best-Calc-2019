@@ -14,6 +14,21 @@ document.write(final_text);
 
 roman = ["I", "V", "X", "C", "D", "M", "L"];
 
+romanValueDict = [
+	{key: 1, value: "I"},
+    {key: 4, value: "IV"},
+    {key: 5, value: "V"},
+    {key: 9, value: "IX"},
+    {key: 10, value: "X"},
+    {key: 40, value: "XL"},
+    {key: 50, value: "L"},
+    {key: 90, value: "XC"},
+    {key: 100, value: "C"},
+    {key: 400, value: "CD"},
+    {key: 500, value: "D"},
+    {key: 900, value: "CM"},
+    {key: 1000, value: "M"}
+]
 // Create a loop of 10 elements.
 // Variable "i" starts with value 1 and while i<=10 it will increment 1 (i=i+1) 
 for (var i=1; i<=10; i=i+1) {
@@ -124,8 +139,18 @@ function toPostFix(inFix, postFix) {
     }
 }
 
-function eval(postFix) {
-
+function toRoman(decimal) {
+	var output = "";
+	while (decimal > 0) {
+    	var i;
+    	for (i = 0; i < romanValueDict.length - 1; i++) {
+            if (decimal >= romanValueDict[i].key && decimal < romanValueDict[i + 1].key) {
+                decimal = decimal - romanValueDict[i].key;
+                output += romanValueDict[i].value;
+            }
+        }
+    }
+    return output;
 }
 
 var input = "VIII+XV*V";
@@ -142,6 +167,8 @@ displayList(tokenList);
 toPostFix(tokenList, postFix);
 displayList(postFix);
 
+var output = toRoman(49);
+document.write(output);
 </script>
 
 <p style="color: green">
