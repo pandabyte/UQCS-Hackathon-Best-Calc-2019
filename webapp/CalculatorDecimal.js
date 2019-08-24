@@ -2,26 +2,6 @@
 
 document.write("<b>LESSON 1: PRINT HELLO WORLD USING VARIABLES</b><br><br>");
 
-
-roman = ["I", "V", "X", "C", "D", "M", "L", "S", "."];
-
-romanValueDict = [
-	{key: 1, value: "I"},
-    {key: 4, value: "IV"},
-    {key: 5, value: "V"},
-    {key: 9, value: "IX"},
-    {key: 10, value: "X"},
-    {key: 40, value: "XL"},
-    {key: 50, value: "L"},
-    {key: 90, value: "XC"},
-    {key: 100, value: "C"},
-    {key: 400, value: "CD"},
-    {key: 500, value: "D"},
-    {key: 900, value: "CM"},
-    {key: 1000, value: "M"},
-    {key: 1000000, value: "Mbar"},
-]
-
 class Token {
     constructor(value, type) {
         this.value = value;
@@ -63,11 +43,19 @@ function tokenize(inputStr, tokenList) {
         } else {
             // number, not an operator
             tokenStr = current;
-            while (i + 1 < input.length && roman.includes(input[i + 1], 0)) {
+            while (i + 1 < input.length && input[i + 1] >= "0" && input[i + 1] <= "9") {
                 i++;
                 tokenStr = tokenStr + input[i];
             }
-            var token = new Token(tokenStr, "Roman");
+            if (input[i + 1] = ".") {
+                i++;
+                tokenStr = tokenStr + input[i];
+                while (i + 1 < input.length && input[i + 1] >= "0" && input[i + 1] <= "9") {
+                    i++;
+                    tokenStr = tokenStr + input[i];
+                }
+            }
+            var token = new Token(tokenStr, "dec");
             tokenList.push(token);
         }
     }
@@ -213,7 +201,12 @@ function evaluateExpression(postFix) {
                 break;
         }
     }
-    return stack[0].value;
+    if (stack.length != 1) {
+    	return stack[0].value;
+    } else {
+    	return stack[0].value;
+    }
+    
 }
 
 function toRoman(decimal) {
@@ -245,41 +238,6 @@ function toRomanFraction(fraction) {
     	output += "."
     }
     return output;
-}
-
-function toDecimal(Roman) {
-	var roman = Roman.split('');
-    var i;  var j;
-    var current; var next;
-    var result = 0;
-    for (i = 0; i < roman.length; i++) {
-    	current = roman[i];
-        if (i + 1 < roman.length) {
-        	next = roman[i + 1];
-            if (next < current) {
-            	for (j = 0; j < romanValueDict.length; j++) {
-                	if (current == romanValueDict[j].value) {
-                    	result += romanValueDict[j].key;
-                	}
-            	}
-            } else {
-                i++;
-            	var temp = current + next;
-            	for (j = 0; j < romanValueDict.length; j++) {
-                	if (temp == romanValueDict[j].value) {
-                    	result += romanValueDict[j].key;
-                	}
-            	}
-            }
-        } else {
-            for (j = 0; j < romanValueDict.length; j++) {
-                if (current == romanValueDict[j].value) {
-                    result += romanValueDict[j].key;
-                }
-            }
-        }
-    }
-    return result;
 }
 
 function validate(tokenList) {
@@ -327,7 +285,7 @@ function calculate(input) {
     }
 }
 
-var input = "M + I";
+var input = "V - X";
 document.write('<br>');
 document.write("<br>" + calculate(input));
 
