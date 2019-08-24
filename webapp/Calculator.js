@@ -1,8 +1,5 @@
 <script>
 
-document.write("<b>LESSON 1: PRINT HELLO WORLD USING VARIABLES</b><br><br>");
-
-
 roman = ["I", "V", "X", "C", "D", "M", "L", "S", "."];
 
 romanValueDict = [
@@ -190,30 +187,46 @@ function evaluateExpression(postFix) {
             case "+":
             	var token1 = stack.pop();
                 var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
                 var token3 = new Token(token2.value + token1.value, "dec");
                 stack.push(token3);
                 break;
             case "-":
                 var token1 = stack.pop();
                 var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
                 var token3 = new Token(token2.value - token1.value, "dec");
                 stack.push(token3);
                 break;
             case "*":
                 var token1 = stack.pop();
                 var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
                 var token3 = new Token(token2.value * token1.value, "dec");
                 stack.push(token3);
                 break;
             case "/":
                 var token1 = stack.pop();
                 var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
                 var token3 = new Token(token2.value / token1.value, "dec");
                 stack.push(token3);
                 break;
         }
     }
-    return stack[0].value;
+    if (stack.length != 1) {
+    	return "Error";
+    } else {
+    	return stack[0].value;
+    }
 }
 
 function toRoman(decimal) {
@@ -306,10 +319,12 @@ function calculate(input) {
     	toPostFix(tokenList, postFix);
     	evaluateNumber(postFix);
     	var DecimalResult = evaluateExpression(postFix);
-        if (DecimalResult < 0) {
+        if (DecimalResult == "Error") {
+            return "Error";
+        } else if (DecimalResult < 0) {
         	result += "-";
             DecimalResult = -DecimalResult;
-        }
+        } 
     	fractionPart = DecimalResult - Math.floor(DecimalResult);
         // guard for rounding
         if (fractionPart > 0.999999) {
@@ -322,14 +337,12 @@ function calculate(input) {
         return result;
     } else {
     	//Error here
-        document.write("Wrong thing");
         return "Error";
     }
 }
 
-var input = "M + I";
-document.write('<br>');
-document.write("<br>" + calculate(input));
+var input = "M + M";
+document.write(calculate(input));
 
 </script>
 
