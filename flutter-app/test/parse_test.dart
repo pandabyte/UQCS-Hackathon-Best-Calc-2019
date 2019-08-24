@@ -17,6 +17,7 @@ void main() {
       'IV': 4,
       'IX': 9,
       'XC': 90,
+      'XIX': 19,
     };
 
     parseResults.forEach(
@@ -30,6 +31,7 @@ void main() {
       'XAI',
       'IC', // Invalid ordering
       'VX',
+      'IIV',
     ].forEach(
       (symbol) => expect(parseRoman(symbol), equals(null)),
     );
