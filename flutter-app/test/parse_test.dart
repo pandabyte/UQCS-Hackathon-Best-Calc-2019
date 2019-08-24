@@ -18,6 +18,7 @@ void main() {
       'IX': 9,
       'XC': 90,
       'XIX': 19,
+      'XCI': 91,
     };
 
     parseResults.forEach(
@@ -34,6 +35,7 @@ void main() {
       'IIV',
       'VV',
       'VIV',
+      'IVI',
     ].forEach(
       (symbol) => expect(parseRoman(symbol), equals(null)),
     );
