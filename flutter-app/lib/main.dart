@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: RomanCalculator(title: 'Roman Calclator'),
+      home: RomanCalculator(title: 'Roman Calculator'),
     );
   }
 }
@@ -27,6 +28,31 @@ class RomanCalculator extends StatefulWidget {
 class _RomanCalculatorState extends State<RomanCalculator> {
   String display = '';
 
+  Table generateButtons() {
+    var buttonTexts = [
+      ['M', '', '/'],
+      ['C', 'D', '*'],
+      ['X', 'L', '-'],
+      ['I', 'V', '+'],
+      ['', '', '='],
+    ];
+
+    return Table(
+      children: List.from(buttonTexts.map(
+        (row) => TableRow(
+          children: List.from(
+            row.map(
+              (label) => FlatButton(
+                onPressed: () {},
+                child: Text(label),
+              ),
+            ),
+          ),
+        ),
+      )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +64,7 @@ class _RomanCalculatorState extends State<RomanCalculator> {
         child: Column(
           children: <Widget>[
             Text('Input'),
+            generateButtons(),
           ],
         ),
       ),
