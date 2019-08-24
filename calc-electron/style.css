@@ -123,10 +123,10 @@ h1 {
 }
 #calcButton{
 	padding: auto;
-	margin-left: 40%;
 	font-family: "Times New Roman", Times, serif;
-  	font-weight: bold;
-	}
+  font-weight: bold;
+  width: 100%;
+}
 
 #romanCalc{
 	display: none;
