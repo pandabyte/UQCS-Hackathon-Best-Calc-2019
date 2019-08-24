@@ -82,23 +82,20 @@ int parseRoman(String roman) {
 
 String generateRoman(int number) {
   // Separate digits by decimal place value and reverse order
-  var reversedDigits =
-      number.toString().split('').reversed.map((digit) => num.parse(digit));
+  var digits = number.toString().split('').map((digit) => num.parse(digit));
 
-  var romanDigits = <String>[];
-  var place = 0;
-  for (var digit in reversedDigits) {
-    var romanDigit = StringBuffer();
+  var roman = StringBuffer();
+  var place = digits.length - 1;
+  for (var digit in digits) {
     var remaining = digit;
     if (digit >= 5) {
-      romanDigit.write(ROMAN_SYMBOL[5 * pow(10, place)]);
+      roman.write(ROMAN_SYMBOL[5 * pow(10, place)]);
       remaining -= 5;
     }
     for (var i = 0; i < remaining; i++) {
-      romanDigit.write(ROMAN_SYMBOL[pow(10, place)]);
+      roman.write(ROMAN_SYMBOL[pow(10, place)]);
     }
-    romanDigits.add(romanDigit.toString());
-    place++;
+    place--;
   }
-  return romanDigits.reversed.join('');
+  return roman.toString();
 }
