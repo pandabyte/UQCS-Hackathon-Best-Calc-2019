@@ -43,174 +43,177 @@
     <!-- </form> -->
 
     <main>
-      <p id ="result1"></p> 
+		<p id ="result1">Mode: Decimal</p> 
 
-	<input type="radio" name="numType" onClick ="Decimal()">Decimal<br>
-	<input type="radio" name="numType" onClick ="Roman()">Roman<br>
-
-	<input id ="numDisplay">
-
-	<table id ="decimalCalc" class="table table-bordered">
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">7</button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">8</button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">9</button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('+')"> <i class="fas fa-plus"></i> </button> 
-			</th>
-
-			<th>
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteOne()"> <i class="material-icons">backspace</i></button> 
-			</th>
-		</tr>
-
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">4</button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">5</button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">6</button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('-')"> <i class="fas fa-minus"></i> </button> 
-			</th>
-			<th>
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteAll()"><i class="material-icons">cancel</i></button> 
-			</th>
-		</tr>
-		
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">1</button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">2</button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">3</button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('*')"><i class="fas fa-asterisk"></i> </button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('.')"><i class="material-icons">fiber_manual_record</i>
-				</button> 
-			</th>
-		</tr>
-		
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">(</button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">0</button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">)</button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('/')"><i class="fas fa-divide"></i></button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('=')"><i class="fas fa-equals"></i></button> 
-			</th>
-		</tr>
-	</table>
-<!-- Roman -->
-	<table id ="romanCalc" class="table table-bordered">
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)"></button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)"></button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)"></button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('+')"><i class="fas fa-plus"></i></button> 
-			</th>
-
-			<th>
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteOne()"> <i class="material-icons">backspace</i></button> 
-			</th>
-		</tr>
-
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">C</button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">D</button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">M</button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('-')"> <i class="fas fa-minus"></i></button> 
-			</th>
-			<th>
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteAll()"><i class="material-icons">cancel</i></span></button> 
-			</th>
-		</tr>
-		
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">V</button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">X</button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">L</button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('*')"><i class="fas fa-asterisk"></i> </button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('.')"><i class="material-icons">fiber_manual_record</i>
-				</button> 
-			</th>
-		</tr>
-		
-		<tr>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">(</button> 
-			</th>
-
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">I</button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(this.innerHTML)">)</button>
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('/')"><i class="fas fa-divide"></i></button> 
-			</th>
-			<th> 
-				<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay('=')"><i class="fas fa-equals"></i></button> 
-			</th>
-		</tr>
-		
-
-	</table>
+		<input type="radio" name="numType"  onClick ="Decimal()" checked>Decimal<br>
+		<input type="radio" name="numType"  onClick ="Roman()">Roman<br>
+	
+		<span>
+				<input id ="numDisplay"> <br>
+		</span>
+		<div id="resultDisplay"><h1 id ="resDisplay">Result: -</h1></div>
+		<table id ="decimalCalc" class="table table-bordered">
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">7</button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">8</button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">9</button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'+')"> <i class="fas fa-plus"></i> </button> 
+				</th>
+	
+				<th>
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteOne()"> <i class="material-icons">backspace</i></button> 
+				</th>
+			</tr>
+	
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">4</button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">5</button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">6</button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'-')"> <i class="fas fa-minus"></i> </button> 
+				</th>
+				<th>
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteAll()"><i class="material-icons">cancel</i></button> 
+				</th>
+			</tr>
+			
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">1</button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">2</button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">3</button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'*')"><i class="fas fa-asterisk"></i> </button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'.')"><i class="material-icons">fiber_manual_record</i>
+					</button> 
+				</th>
+			</tr>
+			
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">(</button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">0</button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">)</button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'/')"><i class="fas fa-divide"></i></button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="equal()"><i class="fas fa-equals"></i></button> 
+				</th>
+			</tr>
+		</table>
+	
+	<!-- Roman -->
+		<table id ="romanCalc" class="table table-bordered">
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)"></button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)"></button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)"></button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'+')"><i class="fas fa-plus"></i></button> 
+				</th>
+	
+				<th>
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteOne()"> <i class="material-icons">backspace</i></button> 
+				</th>
+			</tr>
+	
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">C</button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">D</button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">M</button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'-')"> <i class="fas fa-minus"></i></button> 
+				</th>
+				<th>
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="deleteAll()"><i class="material-icons">cancel</i></span></button> 
+				</th>
+			</tr>
+			
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">V</button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">X</button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">L</button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'*')"><i class="fas fa-asterisk"></i> </button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'.')"><i class="material-icons">fiber_manual_record</i>
+					</button> 
+				</th>
+			</tr>
+			
+			<tr>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">(</button> 
+				</th>
+	
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">I</button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),this.innerHTML)">)</button>
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="addDisplay(document.getElementById('numDisplay'),'/')"><i class="fas fa-divide"></i></button> 
+				</th>
+				<th> 
+					<button type = "button" class="btn btn-outline-secondary btn-lg" id="calcButton" onclick="equalRoman()"><i class="fas fa-equals"></i></button> 
+				</th>
+			</tr>
+			
+	
+		</table>
     </main>
 
     <!-- You can also require other files to run in this process -->
