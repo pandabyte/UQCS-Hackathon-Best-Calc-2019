@@ -26,30 +26,47 @@ class RomanCalculator extends StatefulWidget {
 }
 
 class _RomanCalculatorState extends State<RomanCalculator> {
-  String display = '';
+  String _input = '';
 
-  Table generateButtons() {
+  FlatButton b(String value) {
+    return FlatButton(
+      onPressed: () {
+        setState(() {
+          _input += value;
+        });
+      },
+      child: Text(value),
+    );
+  }
+
+  List<Expanded> generateButtons() {
     var buttonTexts = [
-      ['M', '', '/'],
-      ['C', 'D', '*'],
-      ['X', 'L', '-'],
-      ['I', 'V', '+'],
-      ['', '', '='],
+      [
+        b('M'),
+        FlatButton(
+          onPressed: () {
+            setState(() {
+              _input = '';
+            });
+          },
+          child: Text('Clear'),
+        ),
+        b('/'),
+      ],
+      [b('C'), b('D'), b('*')],
+      [b('X'), b('L'), b('-')],
+      [b('I'), b('V'), b('+')],
+      [b(''), b(''), b('=')],
     ];
 
-    return Table(
-      children: List.from(buttonTexts.map(
-        (row) => TableRow(
-          children: List.from(
-            row.map(
-              (label) => FlatButton(
-                onPressed: () {},
-                child: Text(label),
-              ),
-            ),
+    return List.from(
+      buttonTexts.map(
+        (row) => Expanded(
+          child: Row(
+            children: List.from(row.map((button) => Expanded(child: button))),
           ),
         ),
-      )),
+      ),
     );
   }
 
@@ -59,14 +76,11 @@ class _RomanCalculatorState extends State<RomanCalculator> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ConstrainedBox(
-        constraints: const BoxConstraints.expand(),
-        child: Column(
-          children: <Widget>[
-            Text('Input'),
-            generateButtons(),
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          Text(_input),
+          ...generateButtons(),
+        ],
       ),
     );
   }
