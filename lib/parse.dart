@@ -9,16 +9,22 @@ int parseRoman(String roman) {
     'M': 1000,
   };
 
-  var result = 0;
+  var values = <int>[];
   for (var i = 0; i < roman.length; i++) {
     var value = digits[roman[i]];
 
+    // Check invalid character
     if (value == null) {
       return null;
     }
 
-    result += value;
+    // Check invalid ordering
+    if (i >= 1 && values[i - 1] < value) {
+      return null;
+    }
+
+    values.add(value);
   }
 
-  return result;
+  return values.reduce((a, b) => a + b);
 }

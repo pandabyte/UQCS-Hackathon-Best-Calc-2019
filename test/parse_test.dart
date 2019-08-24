@@ -23,8 +23,10 @@ void main() {
 
   test('Test parsing invalid roman numbers', () {
     [
-      'A',
+      'A', // Invalid characters
       'XAI',
+      'IC', // Invalid ordering
+      'VX',
     ].forEach(
       (symbol) => expect(parseRoman(symbol), equals(null)),
     );
