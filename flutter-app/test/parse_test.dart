@@ -22,7 +22,7 @@ void main() {
     };
 
     parseResults.forEach(
-      (symbol, value) => expect(parseRoman(symbol), equals(value)),
+      (symbol, result) => expect(parseRoman(symbol), equals(result)),
     );
   });
 
@@ -38,6 +38,22 @@ void main() {
       'IVI',
     ].forEach(
       (symbol) => expect(parseRoman(symbol), equals(null)),
+    );
+  });
+
+  test('Test generating roman numbers', () {
+    const generateResults = {
+      1: 'I',
+      5: 'V',
+      10: 'X',
+      50: 'L',
+      100: 'C',
+      500: 'D',
+      1000: 'M',
+    };
+
+    generateResults.forEach(
+      (number, result) => expect(generateRoman(number), equals(result)),
     );
   });
 }

@@ -1,23 +1,36 @@
 import 'dart:math';
 
+const ROMAN_VALUE = {
+  'I': 1,
+  'V': 5,
+  'X': 10,
+  'L': 50,
+  'C': 100,
+  'D': 500,
+  'M': 1000,
+};
+
+const ROMAN_SYMBOL = {
+  1: 'I',
+  5: 'V',
+  10: 'X',
+  50: 'L',
+  100: 'C',
+  500: 'D',
+  1000: 'M',
+};
+
 bool isPowerOfTen(int number) {
   return (log(number) / ln10) % 1 == 0;
 }
 
+/* Parses a Roman numeral string and returns its integer value or null if it is
+ * invalid.
+ */
 int parseRoman(String roman) {
-  const digits = {
-    'I': 1,
-    'V': 5,
-    'X': 10,
-    'L': 50,
-    'C': 100,
-    'D': 500,
-    'M': 1000,
-  };
-
   var values = <int>[];
   for (var i = 0; i < roman.length; i++) {
-    var value = digits[roman[i]];
+    var value = ROMAN_VALUE[roman[i]];
 
     // Check invalid character
     if (value == null) {
@@ -65,4 +78,8 @@ int parseRoman(String roman) {
   }
 
   return values.reduce((a, b) => a + b);
+}
+
+String generateRoman(int number) {
+  return ROMAN_SYMBOL[number];
 }
