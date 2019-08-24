@@ -1,23 +1,36 @@
 import 'dart:math';
 
+const ROMAN_VALUE = {
+  'I': 1,
+  'V': 5,
+  'X': 10,
+  'L': 50,
+  'C': 100,
+  'D': 500,
+  'M': 1000,
+};
+
+const ROMAN_SYMBOL = {
+  1: 'I',
+  5: 'V',
+  10: 'X',
+  50: 'L',
+  100: 'C',
+  500: 'D',
+  1000: 'M',
+};
+
 bool isPowerOfTen(int number) {
   return (log(number) / ln10) % 1 == 0;
 }
 
+/* Parses a Roman numeral string and returns its integer value or null if it is
+ * invalid.
+ */
 int parseRoman(String roman) {
-  const digits = {
-    'I': 1,
-    'V': 5,
-    'X': 10,
-    'L': 50,
-    'C': 100,
-    'D': 500,
-    'M': 1000,
-  };
-
   var values = <int>[];
   for (var i = 0; i < roman.length; i++) {
-    var value = digits[roman[i]];
+    var value = ROMAN_VALUE[roman[i]];
 
     // Check invalid character
     if (value == null) {
@@ -65,4 +78,34 @@ int parseRoman(String roman) {
   }
 
   return values.reduce((a, b) => a + b);
+}
+
+String generateRoman(int number) {
+  // Separate digits by decimal place value
+  var digits = number.toString().split('').map((digit) => num.parse(digit));
+
+  var roman = StringBuffer();
+  var place = digits.length - 1;
+  for (var digit in digits) {
+    var remaining = digit;
+    if (digit == 9) {
+      roman.write(
+        ROMAN_SYMBOL[pow(10, place)] + ROMAN_SYMBOL[pow(10, place + 1)],
+      );
+      remaining = 0;
+    }
+    if (digit >= 4 && digit < 9) {
+      if (digit == 4) {
+        roman.write(ROMAN_SYMBOL[pow(10, place)]);
+        remaining += 1;
+      }
+      roman.write(ROMAN_SYMBOL[5 * pow(10, place)]);
+      remaining -= 5;
+    }
+    for (var i = 0; i < remaining; i++) {
+      roman.write(ROMAN_SYMBOL[pow(10, place)]);
+    }
+    place--;
+  }
+  return roman.toString();
 }
