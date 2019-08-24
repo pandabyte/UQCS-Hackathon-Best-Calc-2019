@@ -23,6 +23,11 @@ int parseRoman(String roman) {
     // Check invalid ordering
     if (i >= 1 && values[i - 1] < value) {
       // Previous character is lower value than current character
+      if (i >= 2 && values[i - 2] < value) {
+        // Both previous two characters are lower value than current character
+        return null;
+      }
+
       if ((log(values[i - 1]) / ln10) % 1 != 0) {
         // Previous character is not a power of 10
         return null;
