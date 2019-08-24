@@ -294,7 +294,7 @@ function validate(tokenList) {
     return true;
 }
 
-function calculate(input) {
+function calculateRoman(input) {
    	var tokenList = [];
     var postFix = [];
     tokenize(input, tokenList);
@@ -328,7 +328,7 @@ function calculate(input) {
 function equalRoman()
 {
 	s = document.getElementById("numDisplay").value
-	num = calculate(s);
+	num = calculateRoman(s);
 	document.getElementById("resDisplay").style.display = "flex"
 	document.getElementById("resDisplay").innerHTML = "Result: " + num
 
@@ -370,7 +370,7 @@ function addDisplay(myField, num)
 function deleteOne()
 {
 	document.getElementById("numDisplay").value = document.getElementById("numDisplay").value.slice(0, -1)
-	document.getElementById("resDisplay").style.display = "none"
+	document.getElementById("resDisplay").innerHTML = "Result: -"
 }
 
 function deleteAll(){
@@ -379,7 +379,173 @@ function deleteAll(){
 }
 
 
-function equal(){
+// Decimal Calculation
+
+
+
+
+
+function tokenizeD(inputStr, tokenList) {
+    var i;
+    input = inputStr.split('');
+    for (i = 0; i < input.length; i++) {
+    	var tokenStr = "";
+        var current = input[i];
+        if (current == "+" || current == "-" || current == "*" || current == "/") {
+            // operator
+            var token = new Token(current, current);
+            tokenList.push(token);
+        } else if (current == "(") {
+        	var token = new Token(current, "left");
+            tokenList.push(token);
+        } else if (current == ")") {
+        	var token = new Token(current, "right");
+            tokenList.push(token);
+        } else if (current == " ") {
+        
+        } else {
+            // number, not an operator
+            tokenStr = current;
+            while (i + 1 < input.length && input[i + 1] >= "0" && input[i + 1] <= "9") {
+                i++;
+                tokenStr = tokenStr + input[i];
+            }
+            if (input[i + 1] == ".") {
+                i++;
+                tokenStr = tokenStr + input[i];
+                while (i + 1 < input.length && input[i + 1] >= "0" && input[i + 1] <= "9") {
+                    i++;
+                    tokenStr = tokenStr + input[i];
+                }
+            }
+            var token = new Token(tokenStr, "dec");
+            tokenList.push(token);
+        }
+    }
+}
+
+
+
+function toPostFixD(inFix, postFix) {
+	// postFix is a list initially empty
+	var list = [];
+    var stack = [];
+    var index;
+    for (index = 0; index < inFix.length; index++) {
+    	var token = inFix[index];
+        switch (token.type) {
+        	case "Roman": case "dec": case "bin": case "hex": case "oct":
+            	postFix.push(token);
+                break;
+            case "+": case "-": case "*": case "/":
+            	while (stack.length > 0 && stack[stack.length - 1].type != "left" && precedence(token) <= precedence(stack[stack.length - 1])) {
+                	postFix.push(stack.pop());
+                }
+                stack.push(token);
+                break;
+            case "left":
+            	stack.push(token);
+                break;
+            case "right":
+            	while (stack.length > 0 && stack[stack.length - 1].type != "left") {
+                	postFix.push(stack.pop());
+                }
+                if (stack[stack.length - 1].type == "left") {
+                	stack.pop();
+                }
+                break;
+        }
+    }
+    while (stack.length > 0) {
+    	postFix.push(stack.pop());
+    }
+}
+
+function evaluateNumberD(postFix) {
+	var i;
+    for (i = 0; i < postFix.length; i++) {
+    	var token = postFix[i];
+    	switch (token.type) {
+        	case "dec": 
+            	if (token.value == ".") {
+            		token.value = 0;
+            	} else {
+            		token.value = parseFloat(token.value, 10);
+            	}
+                break;
+        }
+    }
+}
+
+function evaluateExpressionD(postFix) {
+	var stack = [];
+    var i;
+    for (i = 0; i < postFix.length; i++) {
+    	var token = postFix[i];
+        switch(token.type) {
+        	case "dec":
+            	stack.push(token);
+                break;
+            case "+":
+            	var token1 = stack.pop();
+                var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
+                var token3 = new Token(token2.value + token1.value, "dec");
+                stack.push(token3);
+                break;
+            case "-":
+                var token1 = stack.pop();
+                var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
+                var token3 = new Token(token2.value - token1.value, "dec");
+                stack.push(token3);
+                break;
+            case "*":
+                var token1 = stack.pop();
+                var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
+                var token3 = new Token(token2.value * token1.value, "dec");
+                stack.push(token3);
+                break;
+            case "/":
+                var token1 = stack.pop();
+                var token2 = stack.pop();
+                if (typeof token1 === "undefined" || typeof token2 === "undefined") {
+                	return "Error";
+                }
+                var token3 = new Token(token2.value / token1.value, "dec");
+                stack.push(token3);
+                break;
+        }
+    }
+    if (stack.length != 1) {
+    	return "Error";
+    } else {
+    	return Math.round(stack[0].value * 1000) / 1000;
+    }
+    
+}
+
+function calculateDecimal(input) {
+   	var tokenList = [];
+    var postFix = [];
+    tokenizeD(input, tokenList);
+    var result = "";
+    toPostFixD(tokenList, postFix);
+    evaluateNumberD(postFix);
+    var DecimalResult = evaluateExpressionD(postFix);
+    return DecimalResult;
+}
+
+function equalDecimal(){
+	s = document.getElementById("numDisplay").value
+	num = calculateDecimal(s);
 	document.getElementById("resDisplay").style.display = "flex"
-	document.getElementById("resDisplay").innerHTML = "Result: " + 10000
+	document.getElementById("resDisplay").innerHTML = "Result: " + num
 }
