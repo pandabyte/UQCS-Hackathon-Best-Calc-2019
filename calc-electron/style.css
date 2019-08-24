@@ -27,6 +27,7 @@ body {
 }
 #titlebar {
   padding: 4px;
+  background-color: #483D8B;
 }
 #titlebar #drag-region {
   width: 100%;
@@ -114,10 +115,6 @@ h1 {
   font-weight: 600;
   line-height: 1.2;
 }
-p {
-  margin-top: 10px;
-  color: rgba(255,255,255,0.4);
-}
 
 #decimalCalc{
 	display: none;
@@ -126,10 +123,10 @@ p {
 }
 #calcButton{
 	padding: auto;
-	margin-left: 40%;
 	font-family: "Times New Roman", Times, serif;
-  	font-weight: bold;
-	}
+  font-weight: bold;
+  width: 100%;
+}
 
 #romanCalc{
 	display: none;
