@@ -29,7 +29,12 @@ int parseRoman(String roman) {
       return null;
     }
 
-    // Check invalid ordering
+    // Values after a subtraction must be smaller than the subtracting value
+    if (i >= 2 && values[i - 2] < 0 && -values[i - 2] <= value) {
+      return null;
+    }
+
+    // Subtractions
     if (i >= 1 && values[i - 1] < value) {
       if (!isPowerOfTen(values[i - 1])) {
         // Previous character is not a power of 10
