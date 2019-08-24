@@ -118,3 +118,30 @@ p {
   margin-top: 10px;
   color: rgba(255,255,255,0.4);
 }
+
+#decimalCalc{
+	display: none;
+	margin-left: auto;
+	margin-right:auto;
+}
+#calcButton{
+	padding: auto;
+	margin-left: 40%;
+	font-family: "Times New Roman", Times, serif;
+  	font-weight: bold;
+	}
+
+#romanCalc{
+	display: none;
+	margin-left: auto;
+	margin-right:auto;
+}
+#numDisplay {
+  border-radius: 25px;
+  border: 2px solid black;
+  padding: 20px; 
+  width: 100vw;
+  font-size: 14;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+}
