@@ -2,15 +2,6 @@
 
 document.write("<b>LESSON 1: PRINT HELLO WORLD USING VARIABLES</b><br><br>");
 
-// To start we will create 2 variables:
-var variable1 = 'Hello ';
-var variable2 = 'World!<br><br>'; // <br> means line break in html
- 
-// Create a third variable by adding both variables:
-var final_text = variable1 + variable2;
-
-// Print the final result:
-document.write(final_text);
 
 roman = ["I", "V", "X", "C", "D", "M", "L"];
 
@@ -29,17 +20,6 @@ romanValueDict = [
     {key: 900, value: "CM"},
     {key: 1000, value: "M"}
 ]
-// Create a loop of 10 elements.
-// Variable "i" starts with value 1 and while i<=10 it will increment 1 (i=i+1) 
-for (var i=1; i<=10; i=i+1) {
-
-  document.write(i); // Print the current "i" number
-
-  // Print a comma followed by a space if i < 10
-  if (i<10) {
-    document.write(", ");
-  }
-}
 
 function show_random_number() {
 
@@ -230,7 +210,7 @@ function evaluateExpression(postFix) {
                 break;
         }
     }
-    document.write(stack[0].value);
+    return stack[0].value;
 }
 
 function toRoman(decimal) {
@@ -243,6 +223,20 @@ function toRoman(decimal) {
                 output += romanValueDict[i].value;
             }
         }
+    }
+    return output;
+}
+
+function toRomanFraction(fraction) {
+	var roundedNumerator = Math.round(fraction * 12);
+    var output = "";
+    if (roundedNumerator >= 6) {
+    	output += "S";
+        roundedNumerator -= 6;
+    }
+    var i;
+    for (i = 0; i < roundedNumerator; i++) {
+    	output += "."
     }
     return output;
 }
@@ -282,29 +276,57 @@ function toDecimal(Roman) {
             }
         }
     }
-    document.write(result);
     return result;
 }
 
-var input = "VIII+XV*V";
+function validate(postFix) {
+	var i;
+    for (var i = 0; i < postFix.length; i++) {
+    	var current = postFix[i];
+        if (current.type == "Roman") {
+        	var value = translate(current);
+    		var trueForm = toRoman(value);
+    		if (trueForm != input) {
+            	return false;
+            }
+        }
+    }
+    return true;
+}
+
+function calculate(input) {
+   	var tokenList = [];
+    var postFix = [];
+    tokenize(input, tokenList);
+    toPostFix(tokenList, postFix);
+    validate(postFix);
+    evaluateNumber(postFix);
+    var DecimalResult = evaluateExpression(postFix);
+    document.write(DecimalResult + "<br>");
+    fractionPart = DecimalResult - Math.floor(DecimalResult);
+    RomanResult = toRoman(Math.floor(DecimalResult));
+    fractionResult = toRomanFraction(fractionPart);
+    document.write(RomanResult + fractionResult);
+    return RomanResult + fractionResult;
+}
+
+function roundTo12(input) {
+	return Math.round(12 * input);
+}
+
+var input = "(X+III)/VII";
 inputStr = input.split();
 document.write('<br>');
 for (i = 0; i < inputStr.length; i++) {
 	document.write(inputStr[i]);
 }
 document.write('<br>' + input.length + '<br>');
-var tokenList = [];
-var postFix = [];
-tokenize(input, tokenList);
-displayList(tokenList);
-toPostFix(tokenList, postFix);
-displayList(postFix);
-evaluateNumber(postFix);
-displayList(postFix);
-evaluateExpression(postFix);
-//var output = toRoman(49);
+calculate(input);
 
-//document.write(translate("XIV"));
+
+
+//var output = toRoman(49);
+//document.write(translate("XCIX"));
 </script>
 
 <p style="color: green">
