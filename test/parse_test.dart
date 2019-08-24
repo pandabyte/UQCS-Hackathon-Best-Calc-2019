@@ -14,6 +14,9 @@ void main() {
       'M': 1000,
       'VII': 7,
       'CXI': 111,
+      'IV': 4,
+      'IX': 9,
+      'XC': 90,
     };
 
     parseResults.forEach(

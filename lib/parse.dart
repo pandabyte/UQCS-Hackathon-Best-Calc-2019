@@ -1,3 +1,5 @@
+import 'dart:math';
+
 int parseRoman(String roman) {
   const digits = {
     'I': 1,
@@ -20,7 +22,18 @@ int parseRoman(String roman) {
 
     // Check invalid ordering
     if (i >= 1 && values[i - 1] < value) {
-      return null;
+      // Previous character is lower value than current character
+      if ((log(values[i - 1]) / ln10) % 1 != 0) {
+        // Previous character is not a power of 10
+        return null;
+      }
+
+      var prevFactor = value / values[i - 1];
+      if (prevFactor != 5.0 && prevFactor != 10.0) {
+        return null;
+      }
+
+      values[i - 1] = values[i - 1] * -1;
     }
 
     values.add(value);
