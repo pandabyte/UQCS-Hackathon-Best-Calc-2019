@@ -32,6 +32,8 @@ void main() {
       'IC', // Invalid ordering
       'VX',
       'IIV',
+      'VV',
+      'VIV',
     ].forEach(
       (symbol) => expect(parseRoman(symbol), equals(null)),
     );
