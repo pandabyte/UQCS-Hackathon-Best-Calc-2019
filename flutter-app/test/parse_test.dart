@@ -52,6 +52,8 @@ void main() {
       1000: 'M',
       7: 'VII',
       101: 'CI',
+      4: 'IV',
+      9: 'IX',
     };
 
     generateResults.forEach(
