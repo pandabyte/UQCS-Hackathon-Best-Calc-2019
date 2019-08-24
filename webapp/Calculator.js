@@ -3,7 +3,7 @@
 document.write("<b>LESSON 1: PRINT HELLO WORLD USING VARIABLES</b><br><br>");
 
 
-roman = ["I", "V", "X", "C", "D", "M", "L"];
+roman = ["I", "V", "X", "C", "D", "M", "L", "S", "."];
 
 romanValueDict = [
 	{key: 1, value: "I"},
@@ -20,13 +20,6 @@ romanValueDict = [
     {key: 900, value: "CM"},
     {key: 1000, value: "M"}
 ]
-
-function show_random_number() {
-
-  var random_number = Math.random(); // generate random number between 0 and 1
-  alert(random_number); // show popup with a random number
-  
-}
 
 class Token {
     constructor(value, type) {
@@ -64,6 +57,8 @@ function tokenize(inputStr, tokenList) {
         } else if (current == ")") {
         	var token = new Token(current, "right");
             tokenList.push(token);
+        } else if (current == " ") {
+        
         } else {
             // number, not an operator
             tokenStr = current;
@@ -86,6 +81,8 @@ function check(a)
 	else if (a == "C") {return (100)}
 	else if (a == "D") {return (500)}
 	else if (a == "M") {return (1000)}
+    else if (a == "S") {return (0.5)}
+    else if (a == ".") {return (1/12)}
 }
 
 
@@ -96,6 +93,14 @@ function translate(s)
 	total = 0
 	for (var i = 0; i < s.length; i++) {
 		curr = check(s[i])
+        if (curr == 0.5 || curr == 1/12) {
+        	do {
+            	total += curr;
+        		i++;
+                curr = check(s[i]);
+        	} while (i < s.length && (curr == 0.5 || curr == 1/12));
+            break;
+        }
 		if (past == -1)  
 			{
 				total += curr
@@ -112,12 +117,9 @@ function translate(s)
 		  			}	
 			}
 		past = curr
-		console.log(total)	
 	}
 
-	result = total
-	console.log(s,"in decimal is ",result)
-	return result
+	return total
 }
 
 function displayList(tokenList) {
@@ -215,6 +217,8 @@ function evaluateExpression(postFix) {
 
 function toRoman(decimal) {
 	var output = "";
+    fraction = decimal - Math.floor(decimal);
+    decimal = Math.floor(decimal);
 	while (decimal > 0) {
     	var i;
     	for (i = 0; i < romanValueDict.length - 1; i++) {
@@ -224,6 +228,7 @@ function toRoman(decimal) {
             }
         }
     }
+    output += toRomanFraction(fraction)
     return output;
 }
 
@@ -253,7 +258,6 @@ function toDecimal(Roman) {
             if (next < current) {
             	for (j = 0; j < romanValueDict.length; j++) {
                 	if (current == romanValueDict[j].value) {
-                    	document.write(romanValueDict[j].key + "<br>");
                     	result += romanValueDict[j].key;
                 	}
             	}
@@ -262,7 +266,6 @@ function toDecimal(Roman) {
             	var temp = current + next;
             	for (j = 0; j < romanValueDict.length; j++) {
                 	if (temp == romanValueDict[j].value) {
-                    	document.write(romanValueDict[j].key + "<br>");
                     	result += romanValueDict[j].key;
                 	}
             	}
@@ -270,7 +273,6 @@ function toDecimal(Roman) {
         } else {
             for (j = 0; j < romanValueDict.length; j++) {
                 if (current == romanValueDict[j].value) {
-                	document.write(romanValueDict[j].key + "<br>");
                     result += romanValueDict[j].key;
                 }
             }
@@ -279,14 +281,14 @@ function toDecimal(Roman) {
     return result;
 }
 
-function validate(postFix) {
+function validate(tokenList) {
 	var i;
-    for (var i = 0; i < postFix.length; i++) {
-    	var current = postFix[i];
+    for (var i = 0; i < tokenList.length; i++) {
+    	var current = tokenList[i];
         if (current.type == "Roman") {
-        	var value = translate(current);
+        	var value = translate(current.value);
     		var trueForm = toRoman(value);
-    		if (trueForm != input) {
+    		if (trueForm != current.value) {
             	return false;
             }
         }
@@ -298,42 +300,32 @@ function calculate(input) {
    	var tokenList = [];
     var postFix = [];
     tokenize(input, tokenList);
-    toPostFix(tokenList, postFix);
-    validate(postFix);
-    evaluateNumber(postFix);
-    var DecimalResult = evaluateExpression(postFix);
-    document.write(DecimalResult + "<br>");
-    fractionPart = DecimalResult - Math.floor(DecimalResult);
-    RomanResult = toRoman(Math.floor(DecimalResult));
-    fractionResult = toRomanFraction(fractionPart);
-    document.write(RomanResult + fractionResult);
-    return RomanResult + fractionResult;
+    if (validate(tokenList)) {
+    	toPostFix(tokenList, postFix);
+    	evaluateNumber(postFix);
+    	var DecimalResult = evaluateExpression(postFix);
+    	fractionPart = DecimalResult - Math.floor(DecimalResult);
+        // guard for rounding
+        if (fractionPart > 0.999999) {
+        	fractionPart = 0;
+            RomanResult = toRoman(Math.ceil(DecimalResult));
+            return RomanResult;
+        } else {
+        	RomanResult = toRoman(Math.floor(DecimalResult));
+    		fractionResult = toRomanFraction(fractionPart);
+            return RomanResult + fractionResult;
+        }
+    } else {
+    	//Error here
+        document.write("Wrong thing");
+        return "Error";
+    }
 }
 
-function roundTo12(input) {
-	return Math.round(12 * input);
-}
-
-var input = "(X+III)/VII";
-inputStr = input.split();
+var input = ".. + ... + S.";
 document.write('<br>');
-for (i = 0; i < inputStr.length; i++) {
-	document.write(inputStr[i]);
-}
-document.write('<br>' + input.length + '<br>');
-calculate(input);
+document.write("<br>" + calculate(input));
 
-
-
-//var output = toRoman(49);
-//document.write(translate("XCIX"));
 </script>
 
-<p style="color: green">
-The content above was created with JavaScript.<br>
-This content is created with <b>HTML</b>.<br>
-You can edit JavaScript and HTML in the left part of the page
-and click "<b>Run code</b>" to view results in the right part of the page.
-</p>
-<b>LESSON 4: CALL A JAVASCRIPT FUNCTION:</b>
-<input type=button onClick="show_random_number()" value="Generate random number">
+
