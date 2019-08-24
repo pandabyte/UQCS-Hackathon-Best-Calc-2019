@@ -97,6 +97,49 @@ function tokenize(inputStr, tokenList) {
     }
 }
 
+function check(a)
+{
+	if (a == "I")  {return (1)}
+	else if (a == "V") {return (5)}
+	else if (a == "X") {return (10)}
+	else if (a == "L") {return (50)}
+	else if (a == "C") {return (100)}
+	else if (a == "D") {return (500)}
+	else if (a == "M") {return (1000)}
+}
+
+
+function translate(s)
+{
+	curr = 0
+	past = -1
+	total = 0
+	for (var i = 0; i < s.length; i++) {
+		curr = check(s[i])
+		if (past == -1)  
+			{
+				total += curr
+			}
+		else
+			{
+		  		if (past < curr)
+		  			{
+		  				total = total - past + ( curr - past)
+		  			}
+		  		else 
+		  			{
+		  				total += curr
+		  			}	
+			}
+		past = curr
+		console.log(total)	
+	}
+
+	result = total
+	console.log(s,"in decimal is ",result)
+	return result
+}
+
 function displayList(tokenList) {
     for (i = 0; i < tokenList.length; i++) {
         document.write(tokenList[i].value + " " + tokenList[i].type + "<br>");
@@ -112,7 +155,7 @@ function toPostFix(inFix, postFix) {
     for (index = 0; index < inFix.length; index++) {
     	var token = inFix[index];
         switch (token.type) {
-        	case "Roman": case "b10": case "bin": case "hex": case "oct":
+        	case "Roman": case "dec": case "bin": case "hex": case "oct":
             	postFix.push(token);
                 break;
             case "+": case "-": case "*": case "/":
@@ -139,6 +182,57 @@ function toPostFix(inFix, postFix) {
     }
 }
 
+function evaluateNumber(postFix) {
+	var i;
+    for (i = 0; i < postFix.length; i++) {
+    	var token = postFix[i];
+    	switch (token.type) {
+        	case "Roman": 
+            	token.value = translate(token.value);
+                token.type = "dec";
+                break;
+        }
+    }
+}
+
+function evaluateExpression(postFix) {
+	var stack = [];
+    var i;
+    for (i = 0; i < postFix.length; i++) {
+    	var token = postFix[i];
+        switch(token.type) {
+        	case "dec":
+            	stack.push(token);
+                break;
+            case "+":
+            	var token1 = stack.pop();
+                var token2 = stack.pop();
+                var token3 = new Token(token2.value + token1.value, "dec");
+                stack.push(token3);
+                break;
+            case "-":
+                var token1 = stack.pop();
+                var token2 = stack.pop();
+                var token3 = new Token(token2.value - token1.value, "dec");
+                stack.push(token3);
+                break;
+            case "*":
+                var token1 = stack.pop();
+                var token2 = stack.pop();
+                var token3 = new Token(token2.value * token1.value, "dec");
+                stack.push(token3);
+                break;
+            case "/":
+                var token1 = stack.pop();
+                var token2 = stack.pop();
+                var token3 = new Token(token2.value / token1.value, "dec");
+                stack.push(token3);
+                break;
+        }
+    }
+    document.write(stack[0].value);
+}
+
 function toRoman(decimal) {
 	var output = "";
 	while (decimal > 0) {
@@ -151,6 +245,45 @@ function toRoman(decimal) {
         }
     }
     return output;
+}
+
+function toDecimal(Roman) {
+	var roman = Roman.split('');
+    var i;  var j;
+    var current; var next;
+    var result = 0;
+    for (i = 0; i < roman.length; i++) {
+    	current = roman[i];
+        if (i + 1 < roman.length) {
+        	next = roman[i + 1];
+            if (next < current) {
+            	for (j = 0; j < romanValueDict.length; j++) {
+                	if (current == romanValueDict[j].value) {
+                    	document.write(romanValueDict[j].key + "<br>");
+                    	result += romanValueDict[j].key;
+                	}
+            	}
+            } else {
+                i++;
+            	var temp = current + next;
+            	for (j = 0; j < romanValueDict.length; j++) {
+                	if (temp == romanValueDict[j].value) {
+                    	document.write(romanValueDict[j].key + "<br>");
+                    	result += romanValueDict[j].key;
+                	}
+            	}
+            }
+        } else {
+            for (j = 0; j < romanValueDict.length; j++) {
+                if (current == romanValueDict[j].value) {
+                	document.write(romanValueDict[j].key + "<br>");
+                    result += romanValueDict[j].key;
+                }
+            }
+        }
+    }
+    document.write(result);
+    return result;
 }
 
 var input = "VIII+XV*V";
@@ -166,9 +299,12 @@ tokenize(input, tokenList);
 displayList(tokenList);
 toPostFix(tokenList, postFix);
 displayList(postFix);
+evaluateNumber(postFix);
+displayList(postFix);
+evaluateExpression(postFix);
+//var output = toRoman(49);
 
-var output = toRoman(49);
-document.write(output);
+//document.write(translate("XIV"));
 </script>
 
 <p style="color: green">
