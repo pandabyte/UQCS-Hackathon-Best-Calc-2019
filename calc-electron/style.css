@@ -27,6 +27,7 @@ body {
 }
 #titlebar {
   padding: 4px;
+  background-color: #483D8B;
 }
 #titlebar #drag-region {
   width: 100%;
@@ -113,10 +114,6 @@ h1 {
   margin: 0 0 10px 0;
   font-weight: 600;
   line-height: 1.2;
-}
-p {
-  margin-top: 10px;
-  color: rgba(255,255,255,0.4);
 }
 
 #decimalCalc{
