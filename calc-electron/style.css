@@ -140,7 +140,7 @@ p {
   border-radius: 25px;
   border: 2px solid black;
   padding: 20px; 
-  width: 100vw;
+  width: 100%;
   font-size: 14;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
