@@ -11,7 +11,13 @@ int parseRoman(String roman) {
 
   var result = 0;
   for (var i = 0; i < roman.length; i++) {
-    result += digits[roman[i]];
+    var value = digits[roman[i]];
+
+    if (value == null) {
+      return null;
+    }
+
+    result += value;
   }
 
   return result;
