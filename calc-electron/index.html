@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="style.css" /> 
+  </head>
+  <body>
+      <header id="titlebar">
+          <div id="drag-region">
+    
+            <div id="window-title">
+              <span>The Better Calculator</span>
+            </div>
+    
+            <div id="window-controls">
+              <div class="button" id="min-button">
+                <span>&#128469;</span>
+              </div>
+              <div class="button" id="max-button">
+                <span>&#128470;</span>
+              </div>
+              <div class="button" id="restore-button">
+                <span>&#xE923;</span>
+              </div>
+              <div class="button" id="close-button">
+                <span>&#10060;</span>
+              </div>
+    
+            </div>
+          </div>
+        </header>
+
+    <!-- <form> -->
+      <!-- <input type="number" oninput="validate_binary_input(this.value);" onchange="validate_binary_input(this.value);" /> -->
+    <!-- </form> -->
+
+    <main>
+      <h1>Hello World!</h1>
+      We are using Node.js <span id="node-version"></span>,
+      Chromium <span id="chrome-version"></span>,
+      and Electron <span id="electron-version"></span>.
+    </main>
+
+    <!-- You can also require other files to run in this process -->
+    <!-- <script src="./renderer.js"></script> -->
+    <script src="js/binaryCalc.js"></script>
+    <script>
+      require('./renderer.js')
+      function validate_binary_input(value) {
+        console.log(binaryNumberCalc.validate_is_binary(value));
+      }
+    </script>
+  </body>
+</html>
