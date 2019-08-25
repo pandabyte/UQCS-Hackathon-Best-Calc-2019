@@ -33,7 +33,9 @@ function precedence(token) {
         case "+": case "-":
         	return 1;
         case "*": case "/":
-        	return 2;
+			return 2;
+		case "_":
+			return 3;
         default:
         	return -1;
     }
@@ -120,12 +122,6 @@ function translate(s)
 	return total
 }
 
-function displayList(tokenList) {
-    for (i = 0; i < tokenList.length; i++) {
-        document.write(tokenList[i].value + " " + tokenList[i].type + "<br>");
-    }
-    document.write('<br>');
-}
 
 function toPostFix(inFix, postFix) {
 	// postFix is a list initially empty
@@ -380,21 +376,47 @@ function deleteAll(){
 
 
 // Decimal Calculation
-
-
-
-
-
 function tokenizeD(inputStr, tokenList) {
     var i;
     input = inputStr.split('');
+    var minus = false;
     for (i = 0; i < input.length; i++) {
     	var tokenStr = "";
         var current = input[i];
-        if (current == "+" || current == "-" || current == "*" || current == "/") {
+        if (current == "*" || current == "/") {
             // operator
             var token = new Token(current, current);
             tokenList.push(token);
+        } else if (current == "+" || current == "-") {
+        	if (tokenList.length == 0) {
+            	if (current == "-") {
+                	
+                    var token = new Token("-", "_");
+                    tokenList.push(token);
+                }
+            } else {
+            	switch(tokenList[tokenList.length - 1].type) {
+                	case "dec": case "right":
+                        var token = new Token(current, current);
+                        tokenList.push(token);
+                        break;
+                    case "left":
+                    	if (current == "-") {
+                        	
+                            var token = new Token("-", "_");
+                    		tokenList.push(token);
+                        }
+                        break;
+                    case "+": case "-": case "*": case "/":
+                    	if (current == "-") {
+                        	if (minus == true) {
+                            	minus = false;
+                            } else {
+                            	minus = true;
+                            }
+                        }
+                }
+            }
         } else if (current == "(") {
         	var token = new Token(current, "left");
             tokenList.push(token);
@@ -404,6 +426,12 @@ function tokenizeD(inputStr, tokenList) {
         } else if (current == " ") {
         
         } else {
+        	if (minus) {
+            	var token = new Token("-", "_");
+                tokenList.push(token);
+                minus = false;
+                
+            }
             // number, not an operator
             tokenStr = current;
             while (i + 1 < input.length && input[i + 1] >= "0" && input[i + 1] <= "9") {
@@ -437,7 +465,7 @@ function toPostFixD(inFix, postFix) {
         	case "Roman": case "dec": case "bin": case "hex": case "oct":
             	postFix.push(token);
                 break;
-            case "+": case "-": case "*": case "/":
+			case "+": case "-": case "*": case "/": case "_":
             	while (stack.length > 0 && stack[stack.length - 1].type != "left" && precedence(token) <= precedence(stack[stack.length - 1])) {
                 	postFix.push(stack.pop());
                 }
@@ -458,6 +486,22 @@ function toPostFixD(inFix, postFix) {
     }
     while (stack.length > 0) {
     	postFix.push(stack.pop());
+    }
+}
+
+function evaluateNumber(postFix) {
+	var i;
+    for (i = 0; i < postFix.length; i++) {
+    	var token = postFix[i];
+    	switch (token.type) {
+        	case "dec": 
+            	if (token.value == ".") {
+            		token.value = 0;
+            	} else {
+            		token.value = parseFloat(token.value, 10);
+            	}
+                break;
+        }
     }
 }
 
@@ -522,14 +566,26 @@ function evaluateExpressionD(postFix) {
                 var token3 = new Token(token2.value / token1.value, "dec");
                 stack.push(token3);
                 break;
+            case "_":
+            	var token1 = stack.pop();
+                if (typeof token1 === "undefined") {
+                	return "Error";
+                }
+                var token3;
+                if (token1.value == Math.abs(token1.value)) {
+                	token3 = new Token(-Math.abs(token1.value), "dec");
+                } else {
+                	token3 = new Token(Math.abs(token1.value), "dec");
+                }
+                stack.push(token3);
+                break;
         }
     }
     if (stack.length != 1) {
     	return "Error";
     } else {
-    	return Math.round(stack[0].value * 1000) / 1000;
+    	return stack[0].value;
     }
-    
 }
 
 function calculateDecimal(input) {

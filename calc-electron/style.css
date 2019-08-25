@@ -131,13 +131,17 @@ h1 {
 	margin-right:auto;
 }
 #numDisplay {
-  border-radius: 25px;
-  border: 2px solid black;
-  padding: 20px; 
   width: 100%;
-  font-size: 14;
+  font-size: 5rem;
+  height: 80px;
+  border: none;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
+  background-color: #252525;
+  color: #fff;
+  text-align: right;
+  padding-right: 20px;
+  padding-left: 10px;
 }
 
 #resDisplay{
