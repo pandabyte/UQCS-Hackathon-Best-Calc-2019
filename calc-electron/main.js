@@ -10,12 +10,13 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 700,
-    height: 505,
+    height: 520,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true
     },
-    frame: false
+    frame: false,
+    resizable: false
   })
 
   // and load the index.html of the app.

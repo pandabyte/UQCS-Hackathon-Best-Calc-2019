@@ -108,8 +108,6 @@ main {
   overflow-y: auto;
 }
 
-
-
 h1 {
   margin: 0 0 10px 0;
   font-weight: 600;
@@ -117,7 +115,6 @@ h1 {
 }
 
 #decimalCalc{
-	display: none;
 	margin-left: auto;
 	margin-right:auto;
 }
@@ -141,4 +138,17 @@ h1 {
   font-size: 14;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
+}
+
+#resDisplay{
+  /* display: none; */
+  font-size: 30px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  float: right;
+  margin: 0;
+}
+
+.table {
+  margin-bottom: 0;
 }
