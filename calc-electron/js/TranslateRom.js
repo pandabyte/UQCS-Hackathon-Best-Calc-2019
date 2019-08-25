@@ -489,22 +489,6 @@ function toPostFixD(inFix, postFix) {
     }
 }
 
-function evaluateNumber(postFix) {
-	var i;
-    for (i = 0; i < postFix.length; i++) {
-    	var token = postFix[i];
-    	switch (token.type) {
-        	case "dec": 
-            	if (token.value == ".") {
-            		token.value = 0;
-            	} else {
-            		token.value = parseFloat(token.value, 10);
-            	}
-                break;
-        }
-    }
-}
-
 function evaluateNumberD(postFix) {
 	var i;
     for (i = 0; i < postFix.length; i++) {
