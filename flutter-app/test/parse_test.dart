@@ -19,6 +19,8 @@ void main() {
       'XC': 90,
       'XIX': 19,
       'XCI': 91,
+      'N': 0,
+      '': null,
     };
 
     parseResults.forEach(
@@ -55,6 +57,7 @@ void main() {
       101: 'CI',
       4: 'IV',
       9: 'IX',
+      0: 'N',
     };
 
     generateResults.forEach(

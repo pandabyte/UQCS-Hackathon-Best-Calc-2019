@@ -28,6 +28,10 @@ bool isPowerOfTen(int number) {
  * invalid.
  */
 int parseRoman(String roman) {
+  if (roman == 'N') {
+    return 0;
+  }
+
   var values = <int>[];
   for (var i = 0; i < roman.length; i++) {
     var value = ROMAN_VALUE[roman[i]];
@@ -44,6 +48,11 @@ int parseRoman(String roman) {
 
     // Values after a subtraction must be smaller than the subtracting value
     if (i >= 2 && values[i - 2] < 0 && -values[i - 2] <= value) {
+      return null;
+    }
+
+    // Cannot have 4 consecutive characters of the same value
+    if (i >= 3 && values[i - 3] == value) {
       return null;
     }
 
@@ -77,12 +86,16 @@ int parseRoman(String roman) {
     values.add(value);
   }
 
+  if (values.length == 0) {
+    return null;
+  }
+
   return values.reduce((a, b) => a + b);
 }
 
 String generateRoman(int number) {
   if (number == 0) {
-    return 'nulla';
+    return 'N';
   }
 
   // Separate digits by decimal place value
