@@ -2,17 +2,17 @@
 
 A new Flutter project.
 
-## Getting Started
+![image](https://user-images.githubusercontent.com/14182886/63645094-77982100-c73a-11e9-9de6-3a02bdb61f4a.png)
 
-This project is a starting point for a Flutter application.
+## AND EVEN ROMANS CAN USE IT!
 
-A few resources to get you started if this is your first Flutter project:
+![image](https://user-images.githubusercontent.com/14182886/63645105-a1514800-c73a-11e9-8cf3-d0ea13be1457.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Cross Platform!!!
+- Flutter (IOS/Android)
+- Electron (Mac/Win/Linux)
+- My xbox and ps4! (Web - all basic vanilla js with minimal compatibility issue!)
+- My Nintendo Switch :anguished: - Please Nintendo
+- Stuck in the 1st century with only a smartphone in your hand? No worries, it could just save your life!
 
 "# UQCSHackathon19" 
