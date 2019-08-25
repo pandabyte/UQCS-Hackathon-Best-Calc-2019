@@ -98,10 +98,16 @@ String generateRoman(int number) {
     return 'N';
   }
 
+  var roman = StringBuffer();
+
+  if (number < 0) {
+    roman.write('-');
+    number = -number;
+  }
+
   // Separate digits by decimal place value
   var digits = number.toString().split('').map((digit) => num.parse(digit));
 
-  var roman = StringBuffer();
   var place = digits.length - 1;
   for (var digit in digits) {
     var remaining = digit;

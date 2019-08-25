@@ -58,6 +58,8 @@ void main() {
       4: 'IV',
       9: 'IX',
       0: 'N',
+      -1: '-I',
+      -4: '-IV',
     };
 
     generateResults.forEach(
