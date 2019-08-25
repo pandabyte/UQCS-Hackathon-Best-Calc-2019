@@ -36,6 +36,7 @@ void main() {
       'VV',
       'VIV',
       'IVI',
+      'IIII',
     ].forEach(
       (symbol) => expect(parseRoman(symbol), equals(null)),
     );

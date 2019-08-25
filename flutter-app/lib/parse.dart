@@ -81,6 +81,10 @@ int parseRoman(String roman) {
 }
 
 String generateRoman(int number) {
+  if (number == 0) {
+    return 'nulla';
+  }
+
   // Separate digits by decimal place value
   var digits = number.toString().split('').map((digit) => num.parse(digit));
 
