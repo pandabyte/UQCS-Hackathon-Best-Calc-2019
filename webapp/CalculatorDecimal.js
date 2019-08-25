@@ -15,6 +15,8 @@ function precedence(token) {
         	return 1;
         case "*": case "/":
         	return 2;
+        case "_":  
+        	return 3;
         default:
         	return -1;
     }
@@ -23,13 +25,48 @@ function precedence(token) {
 function tokenize(inputStr, tokenList) {
     var i;
     input = inputStr.split('');
+    var minus = false;
     for (i = 0; i < input.length; i++) {
     	var tokenStr = "";
         var current = input[i];
-        if (current == "+" || current == "-" || current == "*" || current == "/") {
+        if (current == "*" || current == "/") {
             // operator
             var token = new Token(current, current);
             tokenList.push(token);
+        } else if (current == "+" || current == "-") {
+        	if (tokenList.length == 0) {
+            	if (current == "-") {
+                	//var token = new Token(0, "dec");
+                	//tokenList.push(token);
+                	//token = new Token(current, current);
+                    var token = new Token("-", "_");
+                    tokenList.push(token);
+                }
+            } else {
+            	switch(tokenList[tokenList.length - 1].type) {
+                	case "dec": case "right":
+                        var token = new Token(current, current);
+                        tokenList.push(token);
+                        break;
+                    case "left":
+                    	if (current == "-") {
+                        	//var token = new Token(0, "dec");
+                			//tokenList.push(token);
+                			//token = new Token(current, current);
+                            var token = new Token("-", "_");
+                    		tokenList.push(token);
+                        }
+                        break;
+                    case "+": case "-": case "*": case "/":
+                    	if (current == "-") {
+                        	if (minus == true) {
+                            	minus = false;
+                            } else {
+                            	minus = true;
+                            }
+                        }
+                }
+            }
         } else if (current == "(") {
         	var token = new Token(current, "left");
             tokenList.push(token);
@@ -39,6 +76,12 @@ function tokenize(inputStr, tokenList) {
         } else if (current == " ") {
         
         } else {
+        	if (minus) {
+            	var token = new Token("-", "_");
+                tokenList.push(token);
+                minus = false;
+                document.write("-");
+            }
             // number, not an operator
             tokenStr = current;
             while (i + 1 < input.length && input[i + 1] >= "0" && input[i + 1] <= "9") {
@@ -77,7 +120,7 @@ function toPostFix(inFix, postFix) {
         	case "Roman": case "dec": case "bin": case "hex": case "oct":
             	postFix.push(token);
                 break;
-            case "+": case "-": case "*": case "/":
+            case "+": case "-": case "*": case "/": case "_":
             	while (stack.length > 0 && stack[stack.length - 1].type != "left" && precedence(token) <= precedence(stack[stack.length - 1])) {
                 	postFix.push(stack.pop());
                 }
@@ -162,6 +205,19 @@ function evaluateExpression(postFix) {
                 var token3 = new Token(token2.value / token1.value, "dec");
                 stack.push(token3);
                 break;
+            case "_":
+            	var token1 = stack.pop();
+                if (typeof token1 === "undefined") {
+                	return "Error";
+                }
+                var token3;
+                if (token1.value == Math.abs(token1.value)) {
+                	token3 = new Token(-Math.abs(token1.value), "dec");
+                } else {
+                	token3 = new Token(Math.abs(token1.value), "dec");
+                }
+                stack.push(token3);
+                break;
         }
     }
     if (stack.length != 1) {
@@ -169,7 +225,6 @@ function evaluateExpression(postFix) {
     } else {
     	return stack[0].value;
     }
-    
 }
 
 function calculate(input) {
