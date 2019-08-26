@@ -32,7 +32,7 @@ class _RomanCalculatorState extends State<RomanCalculator> {
   bool _error = false;
   int _result = 0;
   String _input = '';
-  String _operation = '';
+  String _operation = '+';
 
   FlatButton numberButton(String value) {
     return FlatButton(
@@ -40,6 +40,10 @@ class _RomanCalculatorState extends State<RomanCalculator> {
         setState(() {
           _error = false;
           _input += value;
+          if (_operation == '=') {
+            _result = 0;
+            _operation = '+';
+          }
         });
       },
       child: Text(value),
@@ -49,28 +53,35 @@ class _RomanCalculatorState extends State<RomanCalculator> {
   FlatButton operationButton(String value) {
     return FlatButton(
       onPressed: () {
+        var parseResult = parseRoman(_input.isEmpty ? 'N' : _input);
         setState(() {
-          var parseResult = parseRoman(_input);
           if (parseResult == null) {
             _error = true;
-          } else {
-            switch (_operation) {
-              case '+':
-                _result += parseResult;
-                break;
-              case '-':
-                _result -= parseResult;
-                break;
-              case '*':
-                _result *= parseResult;
-                break;
-              case '/':
-                _result = _result ~/ parseResult;
-                break;
-            }
             _input = '';
-            _operation = value;
+            return;
           }
+
+          switch (_operation) {
+            case '+':
+              _result += parseResult;
+              break;
+            case '-':
+              _result -= parseResult;
+              break;
+            case '*':
+              _result *= parseResult;
+              break;
+            case '/':
+              _result = _result ~/ parseResult;
+              break;
+            case '=':
+              break;
+            default:
+              throw 'Invalid operation';
+          }
+
+          _input = '';
+          _operation = value;
         });
       },
       child: Text(value),
@@ -103,37 +114,12 @@ class _RomanCalculatorState extends State<RomanCalculator> {
               _error = false;
               _result = 0;
               _input = '';
+              _operation = '+';
             });
           },
           child: Text('Clear'),
         ),
-        FlatButton(
-          onPressed: () {
-            var parseResult = parseRoman(_input);
-            setState(() {
-              if (parseResult == null) {
-                _error = true;
-              } else {
-                switch (_operation) {
-                  case '+':
-                    _result += parseResult;
-                    break;
-                  case '-':
-                    _result -= parseResult;
-                    break;
-                  case '*':
-                    _result *= parseResult;
-                    break;
-                  case '/':
-                    _result = _result ~/ parseResult;
-                    break;
-                }
-                _input = '';
-              }
-            });
-          },
-          child: Text('='),
-        ),
+        operationButton('='),
       ],
     ];
 
@@ -157,7 +143,7 @@ class _RomanCalculatorState extends State<RomanCalculator> {
       ),
       body: Column(
         children: <Widget>[
-          Text(_error ? 'nope' : (_input == '' ? generateRoman(_result) : _input)),
+          Text(_error ? 'nope' : (_input.isEmpty ? generateRoman(_result) : _input)),
           ...generateButtons(),
         ],
       ),
