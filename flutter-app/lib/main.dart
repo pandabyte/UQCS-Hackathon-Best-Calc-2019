@@ -123,16 +123,15 @@ class _RomanCalculatorState extends State<RomanCalculator> {
       ],
     ];
 
-    return List.from(
-      buttonTexts.map(
-        (row) => Expanded(
-          child: Row(
+    return buttonTexts
+        .map(
+          (row) => Expanded(
+              child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: List.from(row.map((button) => Expanded(child: button))),
-          ),
-        ),
-      ),
-    );
+            children: row.map((button) => Expanded(child: button)).toList(),
+          )),
+        )
+        .toList();
   }
 
   @override
@@ -143,7 +142,9 @@ class _RomanCalculatorState extends State<RomanCalculator> {
       ),
       body: Column(
         children: <Widget>[
-          Text(_error ? 'nope' : (_input.isEmpty ? generateRoman(_result) : _input)),
+          Text(_error
+              ? 'nope'
+              : (_input.isEmpty ? (generateRoman(_result) ?? 'nope') : _input)),
           ...generateButtons(),
         ],
       ),
