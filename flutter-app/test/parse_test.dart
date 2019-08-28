@@ -58,11 +58,11 @@ void main() {
       4: 'IV',
       9: 'IX',
       0: 'N',
-      -1: '-I',
+      -1: '-I', // Negative numbers
       -4: '-IV',
-      4000: null,
+      4000: null, // Big numbers
       9000: null,
-      250000: 'nullnullnull',
+      250000: null,
     };
 
     generateResults.forEach(

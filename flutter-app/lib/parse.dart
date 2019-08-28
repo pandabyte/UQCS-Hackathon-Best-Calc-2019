@@ -111,22 +111,34 @@ String generateRoman(int number) {
   var place = digits.length - 1;
   for (var digit in digits) {
     var remaining = digit;
-    if (digit == 9) {
-      roman.write(
-        ROMAN_SYMBOL[pow(10, place)] + ROMAN_SYMBOL[pow(10, place + 1)],
-      );
-      remaining = 0;
+    var romanDigit1 = ROMAN_SYMBOL[pow(10, place)];
+    if (digit != 5 && romanDigit1 == null) {
+      return null;
     }
-    if (digit >= 4 && digit < 9) {
+    // If digit is not 5 then romanDigit1 is not null
+
+    if (digit == 9) {
+      var romanDigit10 = ROMAN_SYMBOL[pow(10, place + 1)];
+      if (romanDigit10 == null) {
+        return null;
+      }
+      roman.write(romanDigit1 + romanDigit10);
+      remaining = 0;
+    } else if (digit >= 4) {
       if (digit == 4) {
-        roman.write(ROMAN_SYMBOL[pow(10, place)]);
+        roman.write(romanDigit1);
         remaining += 1;
       }
-      roman.write(ROMAN_SYMBOL[5 * pow(10, place)]);
+      var romanDigit5 = ROMAN_SYMBOL[5 * pow(10, place)];
+      if (romanDigit5 == null) {
+        return null;
+      }
+      roman.write(romanDigit5);
       remaining -= 5;
     }
+
     for (var i = 0; i < remaining; i++) {
-      roman.write(ROMAN_SYMBOL[pow(10, place)]);
+      roman.write(romanDigit1);
     }
     place--;
   }
